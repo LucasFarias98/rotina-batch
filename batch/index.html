@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotina Batch / Guia de Comandos</title>
+    <link rel="stylesheet" href="./assets/reset.css"> 
+    <link rel="stylesheet" href="./assets/estilo.css">
+
+
+</head>
+<body>
+    <header>
+        <div class="cabecalho">
+            <h1>Guia de Comandos- Rotina Batch</h1>
+        </div>
+        
+    </header>
+    
+    <main class="conteudoPrincipal">
+        <section >
+            <h1 class="titulo">FILE SYSTEM</h1>
+            <img class="imagens"  src="./assets/img/filesystem.png"> 
+            <p>Para verificar o file System, entre no servidor srvsaveFFF com seu usuário do Windows, e digite o comando df, para verificar o percentual usado na armazenagem dos arquivos.</p>
+            <p>Como exemplo o fs1 está em 41%, lembrando que se o fs1 ultrapassar o valor de 81% abrir chamado para produção, utilizando CSC Client, e ligar para os mesmos informando a situação.</p>
+        </section>
+        <section class="jobs">
+         
+            <h1 class="titulo">NETBACKUP - Verificar a liberação das fitas.</h1>
+            <p>Nesse passo é necessário entrar no Netbackup, para verificação das fitas no robô</p>
+            <img class="imagens" src="./assets/img/netbackup.png">
+            <p>Entre com seu login e senha do Windows, Após aberto é importante verificar sem tem alguma fita “full’, "Frozen", se está ativa, na aba "Media" no canto esquerdo do Netbackup, por exemplo se ela estivar com o status 96, proceder: ela está cheia é será necessário realizar a troca da mesma.</p>
+            <img class="imagens" src="./assets/img/netbackupApp.png">
+            <p>Aberto o Media, Se todas estiverem com o status Active, só prosseguir e não será necessário a realização da troca de imediato, a menos que quando for rodar alguma salva e ela ficar full com status 96 ou dê algum problema não finalizando com o status “0” será necessário a troca da fita e rodar a mesma novamente.</p>
+        </section>
+        
+        <section class="jobs">
+            <h1 class="titulo">SJBPEDI</h1>
+            <img class="imagens" src="./assets/img/sjbpedi.png">
+            <p>Executar o SJBPEDI de acordo com a rotina batch, Job executado para que o Rm consiga realizar notas de transferência e também um job que automaticamente faz a transferência do arquivo dá própria filial para as outras filiais da regioanl  prossigam normalmente com a rotina batch <strong>extrema atenção ao rodar esse job, segundo sempre conforme indicado na rotina</strong></p>
+            <p>Esse job também é utilizado pelo a operação do RM(Recebimendo de Mercadorias) onde necessitam dele ativo até o horário determinado no batch rodando para que posso realizar notas de transferências.</p>
+            
+            <section class="jobs"> 
+               <h1 class="titulo">Checagem de arquivos</h1>
+                <img  class="imagens" src="./assets/img/arquivos.png">
+               <p>Verificar apenas com Shell autorizados da matriz, como "antesbatchFFF" e "arquivos.sh"</p>
+               <p>É extremamente importante verificar se todos os arquivos foram gerados, e que não estão compactados com o .gz, duplicados, com alguam incongruência.  
+                Se por ventura estiver um arquivo com gz, ele está zipado, logo entrar no intrega no srvsaveFFF, lista o arquivo zipado com ll e logo realizar a descompactação do arquivo utilizando o comando gunzip nomearquivo.gz
+                pois quando o arquivo está zipado, ocorre problemas de lentidão na sequência que utliza o arquivo ou até mesmo a sequência nem é processada coretamente.
+            </p> 
+            </section>
+            
+            <section class="jobs">
+                <h1 class="titulo">End of Day</h1>
+                <img class="imagens"  src="./assets/img/eod.png">
+                 <div>
+                <p>Utilize o menu do TPL para realizar o End of day.</p>
+                <p><strong>Após o fechamento dos PDV's, Cafeteria, e Moedeiro.</strong></p>
+                <p>Lembrando, conforme especificado no check-list, realizar esse procedimento após a frente de caixa finalizar todos os procedimentos correlatos, tendo em vista que após o EOD, ninguém  poderá utilizar o sistema.
+                 pois durante o batch  são executadas funções que reorganizam e atualizam tabelas.  
+                </p>
+            </div>
+            </section>
+            
+            <section class="jobs">
+             <div>
+                <h1 class="titulo">Redução Z x SASOI60</h1>
+                <img class="imagens" src="./assets/img/reducaoz.png">
+                <p>A conferência de valores deve ser realizada entre a RDZs e tela SASOI60 - TOTALIZAÇÃO DE PDVS, Realizar cada redução e guardar todas corretamente, pois, na tela de confêrencia deverá verificar se o valor corresponde ao que indica na tela SASOI60 (Totalização de PDVS).</p>
+                <ul>
+                    <li>Pontos importantes SASOI60</li>
+                    <li>Quando o valor está correto deve-se digitar S+ENTER</li>
+                    <li>Quando o valor está errado/divergente deve-se digitar N+ENTER e digitar o valor da RDZ na coluna, feito isso a própria tela vai exibir o valor faltante na coluna DIFERENÇA.</li>
+                    <li>Após conferir os valores de todos os PDVs, caso ocorra diferença em algum, entre em contato com a produção</li>
+                </ul>  
+             </div>  
+            </section>
+            
+            <section class="jobs">
+                <div>
+                    <h1 class="titulo">SJBDD00</h1>
+                    <img class="imagens" src="./assets/img/sjbdd00.png">
+                    <ul>
+                        <li>Bloqueio do sistema</li>
+                        <li>Ninguém deverá utlizar o sistema em quanto a rotina batch é executada</li>
+                        <li>Automaticamente os usuários  são bloqueados,  junto com o sistema e as notas.</li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <section class="jobs">
+                <div>
+                    <h1 class="titulo">SALVA ANTES</h1>
+                    <img  class="imagens" src="./assets/img/salva-antes.png">
+                    <p>Abra o Netbackup, no canto esquerdo em "Policies”,  click com o direito em Diário_Antes depois click em Manual Backup, depois Ok e acompanhe a salva na aba Activity Monitor, onde  o  icone  “boneco” ficará correndo em verde, click nesse ícone anote na folha o barcode ID e acompanhe o processamento da salva ao anote o horário inicial e o término da salva antes.</p>
+                </div>
+            </section>
+            
+            <section class="jobs">
+                <div>
+                    <h1 class="titulo">SJBCADE</h1>
+                    <img  class="imagens" src="./assets/img/sjbcade.png"> 
+                        <p>JOB executado apenas em Unificação, o mesmo faz o processamento da unificação de custos.</p>
+                </div>
+            </section>
+        
+            <section class="">
+                <div>
+                    <h1 class="titulo">SJBDD01</h1> 
+                    <img class="imagens" src="./assets/img/sjbdd01.png">
+                    <img class="imagens" src="./assets/img/sjbdd01-ref.png">
+                        <p>Realiza a atualização do sistema</p>
+                        <p>Esse job está correlacionado com as checagens conforme conforme a imagem acima.</p>
+                        <p>Job onde precisamente os arquivos serão utilizados, por isso é de extrema importância que começe a rotina batch com todos os arquivos corretamente.</p>
+                </div>
+            </section>
+        
+            <section class="">
+                <div>
+                    <h1 class="titulo">SJBDD02</h1>
+                    <img class="imagens" src="./assets/img/sjbdd02.png">
+                        <p>Geração de relatórios</p>
+                        <p>Esse job emite as etiquetas batckup, além de relatórios.</p>
+                </div>
+            </section>
+            <section class="">
+                <div>
+                    <h1 class="titulo">SJBDD03</h1>
+                    <img class="imagens" src="./assets/img/sjbdd03.png">
+                    <img class="imagens"  src="./assets/img/sjbdd03-ref.png">
+                        <p>	Exclusão</p>
+                        <p>Job executado para realizar a exclusão de alguns arquivos,  e também é informando para realizar a alteração da data online e batch do sistema para o dia vigente, sadou09.</p>
+                </div>
+            </section>
+        
+            
+        </section>
+        <section class="">
+            <div>
+                <h1 class="titulo">SJBDD04</h1>
+                <img class="imagens" src="./assets/img/sjbdd04.png">
+                    <p>Job como pré abertura da loja</p>
+                    <p>Job executado para realizar a exclusão de alguns arquivos,  e também é informando para realizar a alteração da data online e batch do sistema para o dia vigente, sadou09.</p>
+            </div>
+        </section>
+    
+        
+        
+        </section>
+        <section id="#">
+            <h1 class="titulo">PDVs</h2>
+            <p>O ponto de venda (PDV) é reconhecido como a área mais delicada em uma loja. Para assegurar um monitoramento eficaz das vendas, implementamos o sistema TPLinux, que opera com os softwares SASOU39, SASOU43 e SCDOU27. Dessa forma, garantimos que os PDVs funcionem de maneira otimizada e eficiente.</p>
+            <ul>
+                <li>SASOU39</li>
+                  <p>Onde a nota SASOU 39 atua no Servidor de PDV Ibm on-line.</p>
+                    <li>SASOU43
+                    <p>Essa nota faz processamento on-line de PDV.</p>
+                </li>
+                <li>SCDOU27
+                    <p>Nota que faz a atualização de Sintegra e regras tributarias.</p>
+                </li>
+            </ul>
+        
+        </section>
+        <section id="#">
+            <h1 class="titulo">Comandos de Impressão</h2>
+            <ul>
+                <li>HABILITAR A IMPRESSORA</li>
+                  <p>sudo lpadmin –plptXX –E (maiúsculo)</p>
+                    <li>ACEITAR FILA DE IMPRESSÃO	VISUALIZAR IMPRESSÃO PRESA</li>
+                    <p>sudo accept lptXX</p>
+                    <li>CANCELAR FILA DE IMPRESSÃO</li>
+                    <p>sudo cancel -all lptXX (xx=número da impressora)</p>
+                    <li>
+                        VISUALIZAR FILA
+                        <p>lpstat –t</p> 
+                    </li>
+                    <li>
+                        DIRECIONAR IMPRESSORA
+                        <p>
+                            dfrun exe sadou06
+                        </p>
+                    </li>
+            
+                
+            </ul>
+    
+        </section>
+        <section id="#">
+            <h1 class="titulo">Altera Geral</h2>
+            <ul>
+                <li>.HST</li>
+                  <p>Arquivo gerado porém não consumido.</p>
+                    <li>.DONE</li>
+                    <p>Importação Ok, arquivo consumido pelo TPL.</p>
+                    <li>.TEMP</li>
+                    <p>Em processo ou travado, verificar o horário que foi gerado, no díretório cd: /fs1/pdv/tplinux, listar o produtos ll prod e verificar o horário, caso seja no horário da madrugada abrir chamado para gerar um novo altera.</p>
+                    <li>Horário correto:</li>
+                    <p>Horário para fazer a importação, onde está automatizado, assim que o SOD for executado, a importação será feita automaticamente, acompanhar via tpl putty o log de importação</p>
+                    <p>Seguir a regra de reiniciar o servidor TPL: SERVIDOR TPLINUX, DEVE SEMPRE SER REINICIADO APOS O EOD ("END OF DAY"), E ANTES DO SOD ("START OF DAY"),  DE SEGUNDA A NOITE ATE QUINTA ENTRE A 1 E AS 2:30 DA MANHÃ OU APÓS AS 3:30 ATÉ AS 4:40, POIS AS 3H DA MANHA O TPLINUX INICIA AS ROTINAS DE SALVA DO BATIMENTO AUTOMATICO E AS 5H O BACKUP DO BANCO. </p>
+            </ul> 
+        </section>
+        <section id="#">
+            <h1 class="titulo">Programa de notas e suas funções</h2>
+            <ul>
+                <li>SCDOU27</li>
+                  <p>Atualização de Sintegra e regras tributarias </p>
+                    <li>SVDOU25</li>
+                    <p>Cálculo da nota fiscal atacadão background</p>
+                    <li>SASOU25</li>
+                    <p>EMISSÃO DE NF-e - A.S</p>
+                    <li>SASOU39</li>
+                    <p>Servidor de PDV Ibm on-line</p>
+                    <li>SASOU43</li>
+                    <p>Processamento on-line de PDV </p>
+                    <li>SASOU46</li>
+                    <p>Processamento on-line de notificação Rub</p>
+                    <li>SASOU47</li>
+                    <p>Geração online de interface xml RUB</p>
+                    <li>FLEXJAVA</li>
+                    <p>Impressão de notas e etiquetas</p>
+                    <li>SASOU05</li>
+                    <p>Projeto E-commerce / ifood</p>
+            
+            </ul>
+        </section>
+        <section id="#">
+            <h1 class="titulo">AV</h2>
+            <p>AV é o análitico de Venda.(O mesmo é utilizado para realizar a conferência na tela SASOI60(Totalização de PDV'S.))</p>
+            <ul>
+                <li>/fs1</li>
+                  <p>Raiz do Save, (Sistema de Administração de Vendas e Estoque), fica armazenado o integra, rub, e retaguarda(cd /fs1/pdv/tplinux)</p>
+                    <li>Save</li>
+                    <p>Sistema de Administração de Vendas e Estoque, responsável por disparar comandos e telas.</p>
+                <li>Integra
+                    <p>Diretório onde fica armazenado arquivos da filial e também arquivos após a execução do SJBPEDI, pois recebe arquivos das filiais e também da matriz.</p>
+                </li>
+                <li>fs205</li>
+                <p>Faz o backup das transações.</p>
+            </ul>
+        
+        </section>
+    
+    </main>
+
+    <footer>
+        <p></p>
+    </footer>
+</body>
+</html>
+
